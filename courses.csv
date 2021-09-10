@@ -1,0 +1,5 @@
+subjectCode,number,title,creditType,creditsMin,creditsMax,dateStart,department,campus
+ACCT,101,Accounting 101,fixed,3,,Fall 2021,Accounting,"Central"
+MATH,101,Math 101,fixed,3,,Fall 2019,Math,"Central,North"
+BIO,423,Biology Research,range,3,5,Winter 2022,Biology,"North,South"
+CHEM,221,Organic Chemistry,multiple,3,4,Spring 2021,Chemistry,"East,Central,West"
