@@ -46,7 +46,7 @@ async function requestSubjectCodes() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/cm/options/types/subjectcodes',{
       headers: {
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
+        Authorization: "Bearer "
       }},
       res => {
         let str = "";
@@ -68,7 +68,7 @@ async function requestGroups() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/v1/groups/',{
       headers: {
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
+        Authorization: "Bearer "
       }},
       res => {
         let str = "";
@@ -90,7 +90,7 @@ async function requestCampus() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/cm/options/types/campuses',{
       headers: {
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
+        Authorization: "Bearer "
       }},
       res => {
         let str = "";
@@ -205,7 +205,7 @@ function postToEndpoint(obj){
     headers: {
       'Content-Type': 'application/json',
       'Content-Length': data.length,
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
+      Authorization: "Bearer "
     }
   }
   const req = https.request(options,res => {
