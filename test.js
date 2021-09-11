@@ -25,9 +25,8 @@ async function main(){
 
 }
 
-/*
-Description: Reads courses.csv file into an array of JS objects
-*/
+
+//Description: Reads courses.csv file into an array of JS objects
 function csvToJson(){
   const file = fs.createReadStream('courses.csv');
 
@@ -40,7 +39,7 @@ function csvToJson(){
   })
 }
 
-//Parse the CSV data we read from file into an array of native objects
+//Description: Requests subject code information from the subjectcodes endpoint
 async function requestSubjectCodes() {
   let obj = {};
   return new Promise((resolve,reject) =>  {
@@ -63,6 +62,7 @@ async function requestSubjectCodes() {
   req.end;
 }
 
+//Description: Requests subject group information from the groups endpoint
 async function requestGroups() {
   let obj = {};
   return new Promise((resolve,reject) =>  {
@@ -85,6 +85,7 @@ async function requestGroups() {
   req.end;
 }
 
+//Description: Requests campus information from the campuses endpoint
 async function requestCampus() {
   let obj = {};
   return new Promise((resolve,reject) =>  {
@@ -107,6 +108,7 @@ async function requestCampus() {
   req.end;
 }
 
+//Description: Constructs a javascript object following the specification that we will later convert to JSON
 function constructObjForPost(oCourse,oSubjectCodes,oGroups,oCampus){
   let obj = {};
 
@@ -136,6 +138,7 @@ function getSubjectId(oCourse,oSubjectCodes){
   }
 }
 
+//Description: Constructs a credit object that will conform to the credit requirement laid out in the specification
 function getCreditObject(oCourse){
   let oCredit = {}
   oCredit.chosen = oCourse.creditType;
@@ -157,6 +160,7 @@ function getCreditObject(oCourse){
   return oCredit;
 }
 
+//Description: Constructs a date string for use in the JSON according to the specification
 function getDateString(oCourse){
   let dateStart = oCourse.dateStart;
   let [semester, year] = dateStart.split(' ');
@@ -174,6 +178,7 @@ function getDateString(oCourse){
 
 }
 
+//Description: Returns the Group Filter IDs as required by the specification (for use in the JS object and JSON)
 function getGroupFilter(oCourse,oGroups){
   for (const item of oGroups) {
     if (item.name === oCourse.department){
@@ -183,6 +188,7 @@ function getGroupFilter(oCourse,oGroups){
   return []
 }
 
+//Description: Constructs a campus object for use in the JS object/JSON
 function getCampusObject(oCourse,oCampus){
   let oTemp = {}
   for (const item of oCampus) {
@@ -193,6 +199,7 @@ function getCampusObject(oCourse,oCampus){
   return oTemp;
 }
 
+//Method to actually convert the JS object into JSON and then POST it to the requested endpoint.
 function postToEndpoint(obj){
   const data = JSON.stringify(obj);
   console.log(data)
