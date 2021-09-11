@@ -112,7 +112,8 @@ function constructObjForPost(oCourse,oSubjectCodes,oGroups,oCampus){
   obj.number = oCourse.number;
   obj.title = oCourse.title;
   obj.credits = getCreditObject(oCourse);
-  obj.status = "draft"
+  obj.status = "draft";
+  obj.dateStart = getDateString(oCourse);
   console.log(obj)
 
 
@@ -146,18 +147,20 @@ function getCreditObject(oCourse){
   }
   return oCredit;
 }
-/*
-function onCsvParseComplete(results){
 
-  console.log(ret)
-  return 1
-  results.data.forEach((item, i) => {
-    //Limit to one iteration for now so that we can perfect the logic first
-    if (i !== 1) {return;};
-    //Iterate through the current object
-    for (let key in item){
-      //console.log(key + ": " + item[key]);
-    }
-  })
+function getDateString(oCourse){
+  let dateStart = oCourse.dateStart;
+  let [semester, year] = dateStart.split(' ');
+  //console.log(dateStart);
+  switch(semester){
+    case "Winter":
+      return year + '-01-01';
+    case "Spring":
+      return year + '-04-03';
+    case "Summer":
+      return year + '-07-04';
+    case "Fall":
+      return year + '-10-04';
+  }
+
 }
-*/
