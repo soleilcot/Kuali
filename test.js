@@ -19,6 +19,8 @@ async function main(){
   //console.log(oCampus);
   oCourses.forEach((item, i) => {
     let obj = constructObjForPost(item,oSubjectCodes,oGroups,oCampus);
+    console.log(obj)
+    postToEndpoint(obj);
   });
 
 }
@@ -44,7 +46,7 @@ async function requestSubjectCodes() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/cm/options/types/subjectcodes',{
       headers: {
-        Authorization: "Bearer "
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
       }},
       res => {
         let str = "";
@@ -66,7 +68,7 @@ async function requestGroups() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/v1/groups/',{
       headers: {
-        Authorization: "Bearer "
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
       }},
       res => {
         let str = "";
@@ -88,7 +90,7 @@ async function requestCampus() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/cm/options/types/campuses',{
       headers: {
-        Authorization: "Bearer "
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
       }},
       res => {
         let str = "";
@@ -121,8 +123,9 @@ function constructObjForPost(oCourse,oSubjectCodes,oGroups,oCampus){
   }
 
   obj.campus = getCampusObject(oCourse,oCampus);
+  obj.notes = "Submitted by Soleil Cotterell";
 
-  //console.log(obj)
+  return obj;
 }
 
 function getSubjectId(oCourse,oSubjectCodes){
@@ -188,4 +191,30 @@ function getCampusObject(oCourse,oCampus){
     }
   }
   return oTemp;
+}
+
+function postToEndpoint(obj){
+  const data = JSON.stringify(obj);
+  console.log(data)
+  
+  const options = {
+    hostname: 'stucse.kuali.co',
+    port: 443,
+    path: '/api/cm/courses/',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length,
+      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjg0Mjg4ODcyOGJlMDEwNjY0MmQ2MCIsImlzcyI6Imt1YWxpLmNvIiwiZXhwIjoxNjU4NDE4Njk2LCJpYXQiOjE2MjY4ODI2OTZ9.WCdRFv7EOF8LCZ9ElvZfYcFsPVGvxo0x9QduBmICpKI"
+    }
+  }
+  const req = https.request(options,res => {
+      let str;
+      res.on('data', chunk => {
+        str += chunk;
+      })
+      console.log(res.statusCode);
+  })
+req.write(data)
+req.end;
 }
