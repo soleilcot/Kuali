@@ -114,6 +114,14 @@ function constructObjForPost(oCourse,oSubjectCodes,oGroups,oCampus){
   obj.credits = getCreditObject(oCourse);
   obj.status = "draft";
   obj.dateStart = getDateString(oCourse);
+
+  let groupFilterArray = getGroupFilter(oCourse,oGroups);
+  if (groupFilterArray.length){
+    [obj.groupFilter1, obj.groupFilter2] = groupFilterArray;
+  }
+
+  obj.campus = getCampusObject(oCourse,oCampus);
+
   console.log(obj)
 
 
@@ -163,4 +171,23 @@ function getDateString(oCourse){
       return year + '-10-04';
   }
 
+}
+
+function getGroupFilter(oCourse,oGroups){
+  for (const item of oGroups) {
+    if (item.name === oCourse.department){
+      return [item.id, item.parentId];
+    }
+  }
+  return []
+}
+
+function getCampusObject(oCourse,oCampus){
+  let oTemp = {}
+  for (const item of oCampus) {
+    if (oCourse.campus.includes(item.name)){
+      oTemp[item.id] = true;
+    }
+  }
+  return oTemp;
 }
