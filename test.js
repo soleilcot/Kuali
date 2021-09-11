@@ -44,7 +44,7 @@ async function requestSubjectCodes() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/cm/options/types/subjectcodes',{
       headers: {
-        Authorization: "Bearer ***REMOVED***"
+        Authorization: "Bearer "
       }},
       res => {
         let str = "";
@@ -66,7 +66,7 @@ async function requestGroups() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/v1/groups/',{
       headers: {
-        Authorization: "Bearer ***REMOVED***"
+        Authorization: "Bearer "
       }},
       res => {
         let str = "";
@@ -88,7 +88,7 @@ async function requestCampus() {
   return new Promise((resolve,reject) =>  {
     const req = https.get('https://stucse.kuali.co/api/cm/options/types/campuses',{
       headers: {
-        Authorization: "Bearer ***REMOVED***"
+        Authorization: "Bearer "
       }},
       res => {
         let str = "";
