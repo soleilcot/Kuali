@@ -12,10 +12,11 @@ const https = require('https');
 main()
 
 async function main(){
-  let [oCourses, oSubjectCodes,oGroups,oCampus] = await Promise.all([csvToJson(), requestSubjectCodes(),requestGroups(),requestCampus()]);
+  let [oCourses, oSubjectCodes, oGroups, oCampus] = await Promise.all([csvToJson(), requestSubjectCodes(),requestGroups(),requestCampus()]);
   console.log(oCampus);
-
-
+  console.log(oSubjectCodes);
+  console.log(oGroups);
+  console.log(oCampus);
 }
 
 /*
