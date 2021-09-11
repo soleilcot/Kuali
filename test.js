@@ -111,7 +111,8 @@ function constructObjForPost(oCourse,oSubjectCodes,oGroups,oCampus){
   obj.subjectCode = getSubjectId(oCourse,oSubjectCodes);
   obj.number = oCourse.number;
   obj.title = oCourse.title;
-  //obj.credit = getCreditObject()
+  obj.credits = getCreditObject(oCourse);
+  obj.status = "draft"
   console.log(obj)
 
 
@@ -125,7 +126,26 @@ function getSubjectId(oCourse,oSubjectCodes){
   }
 }
 
-//function getCreditObject(oCourse,oSubjectCodes){}
+function getCreditObject(oCourse){
+  let oCredit = {}
+  oCredit.chosen = oCourse.creditType;
+  switch(oCourse.creditType){
+    case 'fixed':
+      oCredit.credits = {min: oCourse.creditsMin, max: oCourse.creditsMin};
+      oCredit.value = oCourse.creditsMin;
+      break;
+    case 'multiple':
+      oCredit.credits = {max: oCourse.creditsMax, min: oCourse.creditsMin};
+      oCredit.value = [oCourse.creditsMin, oCourse.creditsMax]
+      break;
+    case 'range':
+      let oCreditRange = {min: oCourse.creditsMin, max: oCourse.creditsMax};
+      oCredit.credits = oCreditRange;
+      oCredit.value = oCreditRange;
+      break;
+  }
+  return oCredit;
+}
 /*
 function onCsvParseComplete(results){
 
