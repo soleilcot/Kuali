@@ -13,7 +13,14 @@ main()
 
 async function main(){
   let [oCourses, oSubjectCodes, oGroups, oCampus] = await Promise.all([csvToJson(), requestSubjectCodes(),requestGroups(),requestCampus()]);
-  //debug: console.log(oCampus) console.log(oSubjectCodes) console.log(oGroups) console.log(oCampus);
+  //console.log(oCourses)
+  //console.log(oSubjectCodes)
+  //console.log(oGroups)
+  //console.log(oCampus);
+  oCourses.forEach((item, i) => {
+    let obj = constructObjForPost(item,oSubjectCodes,oGroups,oCampus);
+  });
+
 }
 
 /*
@@ -98,6 +105,27 @@ async function requestCampus() {
   req.end;
 }
 
+function constructObjForPost(oCourse,oSubjectCodes,oGroups,oCampus){
+  let obj = {};
+
+  obj.subjectCode = getSubjectId(oCourse,oSubjectCodes);
+  obj.number = oCourse.number;
+  obj.title = oCourse.title;
+  //obj.credit = getCreditObject()
+  console.log(obj)
+
+
+}
+
+function getSubjectId(oCourse,oSubjectCodes){
+  for (const item of oSubjectCodes) {
+    if (item.name === oCourse.subjectCode){
+      return item.id;
+    }
+  }
+}
+
+//function getCreditObject(oCourse,oSubjectCodes){}
 /*
 function onCsvParseComplete(results){
 
