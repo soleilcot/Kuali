@@ -122,9 +122,7 @@ function constructObjForPost(oCourse,oSubjectCodes,oGroups,oCampus){
 
   obj.campus = getCampusObject(oCourse,oCampus);
 
-  console.log(obj)
-
-
+  //console.log(obj)
 }
 
 function getSubjectId(oCourse,oSubjectCodes){
